@@ -286,11 +286,13 @@ export class WorkbenchThemeService extends WithEventBus implements IThemeService
   public getAvailableThemeInfos(): ThemeInfo[] {
     const themeInfos: ThemeInfo[] = [];
     for (const { contribution } of this.themeContributionRegistry.values()) {
-      const { label, uiTheme } = contribution;
+      const { label, uiTheme, extensionId } = contribution;
+      const themeId = getThemeId(contribution);
       themeInfos.push({
-        themeId: getThemeId(contribution),
+        themeId,
         name: label,
         base: uiTheme || 'vs',
+        extensionId,
       });
     }
     return themeInfos;
